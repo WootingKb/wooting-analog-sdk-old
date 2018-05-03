@@ -7,6 +7,7 @@
 #endif
 
 #include "wooting-scan-codes.h"
+#include "stdbool.h"
 
 typedef void(*void_cb)(void);
 
@@ -24,9 +25,9 @@ It is recommended to poll this function at the start of your application before 
 @ingroup API
 
 @returns
-This function returns 0 on success and -1 on error.
+This function returns true (1) if keyboard is found.
 */
-WOOTINGANALOGREADER_API int wooting_kbd_connected(void);
+WOOTINGANALOGREADER_API bool wooting_kbd_connected(void);
 
 /** @brief Set callback for when a keyboard disconnect.
 
@@ -59,7 +60,7 @@ WOOTINGANALOGREADER_API unsigned char wooting_read_analog(SCAN_CODES key);
 This function can be used to get a buffer of all the keys that are pressed up to a maximum of 16 keys. This can be used for easier access
 to the keys that are currently pressed.
 
-It is not necesarry to initialize the keyboard before reading, but if the keyboard is not connected this function will return 0.
+It is not necesarry to initialize the keyboard before reading, but if the keyboard is not connected this function will return -1.
 
 @ingroup API
 @param data A buffer to put the read data into. Expects an array of wooting_full_buffer.

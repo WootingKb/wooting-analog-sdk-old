@@ -61,8 +61,8 @@ void wooting_set_disconnected_cb(void_cb cb) {
 	disconnected_callback = cb;
 }
 
-int wooting_kbd_connected() {
-	return hid_enumerate(WOOTING_ONE_VID, WOOTING_ONE_PID) == NULL ? -1 : 0;
+bool wooting_kbd_connected() {
+	return hid_enumerate(WOOTING_ONE_VID, WOOTING_ONE_PID) != NULL ? true : false;
 }
 
 unsigned char wooting_read_analog(SCAN_CODES scan_index) {
