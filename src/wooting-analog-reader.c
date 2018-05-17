@@ -113,8 +113,8 @@ int wooting_read_full_buffer(wooting_full_buffer data[], unsigned int length) {
 			items_written++;
 		}
 		else {
-			data[i].analog_value = 0;
-			data[i].scan_code = SCAN_NO_KEY;
+			// There will be no other keys once an analog value is 0
+			return items_written;
 		}
 	}
 

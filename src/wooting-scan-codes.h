@@ -91,6 +91,5 @@ typedef enum SCAN_CODES {
 	SCAN_ModifierRightAlt,
 	SCAN_ModifierRightUi,
 	SCAN_FnKey,
-	SCAN_ExtrIso,
-	SCAN_NO_KEY = 255
+	SCAN_ExtraIso
 } SCAN_CODES;
