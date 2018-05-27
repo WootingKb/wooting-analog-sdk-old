@@ -1,6 +1,9 @@
 #include "wooting-analog-reader.h"
 #include "hidapi.h"
 #include "wooting-scan-codes.h"
+#include "stdint.h"
+
+#define NOKEY 255
 
 #define ANALOG_BUFFER_SIZE 32
 #define WOOTING_ONE_VID 0x03EB
@@ -65,13 +68,27 @@ bool wooting_kbd_connected() {
 	return hid_enumerate(WOOTING_ONE_VID, WOOTING_ONE_PID) != NULL ? true : false;
 }
 
-unsigned char wooting_read_analog(SCAN_CODES scan_index) {
-	int hid_res = wooting_refresh_buffer();
+unsigned char wooting_read_analog(uint8_t row, uint8_t column) {
+	static uint8_t scan_index_array[WOOTING_RGB_ROWS][WOOTING_RGB_COLS] = {
+		{ 0, NOKEY, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 107, 108, 109, 110 },
+		{ 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 61, 106, 105, 104, 103 },
+		{ 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 62, 102, 101, 100, 99 },
+		{ 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 45, 60, NOKEY, NOKEY, NOKEY, 98, 97, 96, NOKEY },
+		{ 64, 87, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, NOKEY, 75, NOKEY, 63, NOKEY, 90, 91, 92, 93 },
+		{ 80, 81, 82, NOKEY, NOKEY, NOKEY, 83, NOKEY, NOKEY, NOKEY, 84, 85, 86, 79, 76, 77, 78, NOKEY, 95, 94, NOKEY }
+	};
 
 	// Just return a 0 value if there's an error. Keyboard will be closed in refresh buffer.
-	if (hid_res == -1) {
+	if (wooting_refresh_buffer() == -1) {
 		return 0;
 	}
+
+	// Check if parameters are not out of bounds
+	if (row > (WOOTING_RGB_ROWS - 1) || column > (WOOTING_RGB_COLS - 1)) {
+		return 0;
+	}
+
+	uint8_t scan_index = scan_index_array[row][column];
 
 	for (int i = 1; i < ANALOG_BUFFER_SIZE && hid_read_buffer[i] > 0; i += 2) {
 		if (hid_read_buffer[i - 1] == scan_index) {
@@ -89,12 +106,11 @@ unsigned char wooting_read_analog(SCAN_CODES scan_index) {
 	return 0;
 }
 
-int wooting_read_full_buffer(wooting_full_buffer data[], unsigned int length) {
+int wooting_read_full_buffer(WootingAnalogRaw data[], unsigned int length) {
 	int items_written = 0;
 	int items_to_read = length;
-	int hid_res = wooting_refresh_buffer();
 
-	if (hid_res == -1) {
+	if (wooting_refresh_buffer() == -1) {
 		return -1;
 	}
 

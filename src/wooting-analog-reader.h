@@ -8,13 +8,17 @@
 
 #include "wooting-scan-codes.h"
 #include "stdbool.h"
+#include "stdint.h"
+
+#define WOOTING_RGB_ROWS 6
+#define WOOTING_RGB_COLS 21
 
 typedef void(*void_cb)(void);
 
-typedef struct wooting_full_buffer {
-	unsigned char scan_code;
-	unsigned char analog_value;
-} wooting_full_buffer;
+typedef struct WootingAnalogRaw {
+	uint8_t scan_code;
+	uint8_t analog_value;
+} WootingAnalogRaw;
 
 /** @brief Check if keyboard connected.
 
@@ -53,7 +57,7 @@ It is not necesarry to initialize the keyboard before reading, but if the keyboa
 @returns
 This function returns the analog value of the key from 0 - 255
 */
-WOOTINGANALOGREADER_API unsigned char wooting_read_analog(SCAN_CODES key);
+WOOTINGANALOGREADER_API uint8_t wooting_read_analog(uint8_t row, uint8_t column);
 
 /** @brief Get the full analog buffer.
 
@@ -69,4 +73,4 @@ It is not necesarry to initialize the keyboard before reading, but if the keyboa
 @returns
 This function returns items written and -1 on error.
 */
-WOOTINGANALOGREADER_API int wooting_read_full_buffer(wooting_full_buffer data[], unsigned int items);
+WOOTINGANALOGREADER_API int wooting_read_full_buffer(WootingAnalogRaw data[], unsigned int items);
