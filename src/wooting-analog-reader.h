@@ -15,11 +15,6 @@
 
 typedef void(*void_cb)(void);
 
-typedef struct WootingAnalogRaw {
-	uint8_t scan_code;
-	uint8_t analog_value;
-} WootingAnalogRaw;
-
 /** @brief Check if keyboard connected.
 
 This function offers a quick check if the keyboard is connected. This doesn't open the keyboard or influences reading.
@@ -62,15 +57,15 @@ WOOTINGANALOGREADER_API uint8_t wooting_read_analog(uint8_t row, uint8_t column)
 /** @brief Get the full analog buffer.
 
 This function can be used to get a buffer of all the keys that are pressed up to a maximum of 16 keys. This can be used for easier access
-to the keys that are currently pressed.
+to all the keys that are currently pressed. The data is ordered as [scan_code0, analog_value0, scan_code1, analog_value1, .... , scan_code15, analog_value15] 
 
-It is not necesarry to initialize the keyboard before reading, but if the keyboard is not connected this function will return -1.
+It is not necesarry to initialize the keyboard before reading. If the keyboard is not connected this function will return -1.
 
 @ingroup API
-@param data A buffer to put the read data into. Expects an array of wooting_full_buffer.
-@param items Amount of items in the array of the data buffer
+@param data A buffer to put the read data into.
+@param items Length of the data buffer
 
 @returns
 This function returns items written and -1 on error.
 */
-WOOTINGANALOGREADER_API int wooting_read_full_buffer(WootingAnalogRaw data[], unsigned int items);
+WOOTINGANALOGREADER_API int wooting_read_full_buffer(uint8_t data[], unsigned int length);

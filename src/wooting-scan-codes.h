@@ -1,7 +1,7 @@
 #pragma once
 
 // Enum that can be used to easily get the scan code from a key. 
-// Will only work with the default layout
+// TODO: Add array indexing to/from scan codes helpers
 
 typedef enum SCAN_CODES {
 	SCAN_Escape,
@@ -91,5 +91,28 @@ typedef enum SCAN_CODES {
 	SCAN_ModifierRightAlt,
 	SCAN_ModifierRightUi,
 	SCAN_FnKey,
-	SCAN_ExtraIso
+	SCAN_ExtraIso,
+	SCAN_None,
+	SCAN_None,
+	SCAN_Numpad1,
+	SCAN_Numpad2,
+	SCAN_Numpad3,
+	SCAN_NumpadEnter,
+	SCAN_NumpadDot,
+	SCAN_Numpad0,
+	SCAN_Numpad6,
+	Scan_Numpad5,
+	SCAN_Numpad4,
+	SCAN_NumpadPlus,
+	SCAN_Numpad9,
+	SCAN_Numpad8,
+	SCAN_Numpad7,
+	SCAN_NumpadMinus,
+	SCAN_NumpadMultiply,
+	SCAN_NumpadDivide,
+	SCAN_NumLock,
+	SCAN_A1,
+	SCAN_A2,
+	SCAN_A3,
+	SCAN_Mode
 } SCAN_CODES;

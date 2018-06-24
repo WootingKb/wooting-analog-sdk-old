@@ -116,26 +116,26 @@ unsigned char wooting_read_analog(uint8_t row, uint8_t column) {
 	return 0;
 }
 
-int wooting_read_full_buffer(WootingAnalogRaw data[], unsigned int length) {
+int wooting_read_full_buffer(uint8_t data[], unsigned int length) {
 	int items_written = 0;
-	int items_to_read = length;
+	int read_length = length;
 
 	if (!wooting_refresh_buffer()) {
 		return -1;
 	}
 
 	// Cap elements to read
-	if (length > ANALOG_BUFFER_SIZE / 2) {
-		items_to_read = ANALOG_BUFFER_SIZE;
+	if (length > ANALOG_BUFFER_SIZE) {
+		read_length = ANALOG_BUFFER_SIZE;
 	}
 
-	for (int i = 0; i < items_to_read; i++) {
-		unsigned char scan_code = hid_read_buffer[i * 2];
-		unsigned char analog_value = hid_read_buffer[i * 2 + 1];
+	for (int i = 0; i < read_length; i += 2) {
+		uint8_t scan_code = hid_read_buffer[i];
+		uint8_t analog_value = hid_read_buffer[i + 1];
 
 		if (analog_value > 0) {
-			data[i].analog_value = analog_value;
-			data[i].scan_code = scan_code;
+			data[i] = scan_code;
+			data[i + 1] = analog_value;
 			items_written++;
 		}
 		else {
