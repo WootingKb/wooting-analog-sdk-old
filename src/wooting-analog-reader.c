@@ -2,6 +2,7 @@
 #include "hidapi.h"
 #include "wooting-scan-codes.h"
 #include "stdint.h"
+#include "stdbool.h"
 
 #define NOKEY 255
 
@@ -23,31 +24,38 @@ static void wooting_keyboard_disconnected() {
 	}
 }
 
-static int wooting_find_keyboard() {
+static bool wooting_find_keyboard() {
 	struct hid_device_info* hid_info = hid_enumerate(WOOTING_ONE_VID, WOOTING_ONE_PID);
 
 	if (hid_info == NULL) {
-		return -1;
+		return false;
 	}
 
-	// Loop through linked list of hid_info untill the analog interface is found
-	while (hid_info->next) {
-		if (hid_info->usage_page == WOOTING_ONE_ANALOG_USAGE_PAGE) {
-			keyboard_handle = hid_open_path(hid_info->path);
-			return 0;
+	bool keyboard_found = false;
+
+	// Loop through linked list of hid_info untill the analog interface is found 
+	struct hid_device_info* hid_info_walker = hid_info;
+	while (hid_info_walker) {
+		if (hid_info_walker->usage_page == WOOTING_ONE_ANALOG_USAGE_PAGE) {
+			keyboard_handle = hid_open_path(hid_info_walker->path);
+			if (keyboard_handle) {
+				keyboard_found = true;
+			}
+			break;
 		}
-		else {
-			hid_info = hid_info->next;
-		}
+		
+		hid_info_walker = hid_info_walker->next;
 	}
 
-	// Analog interface not found
-	return -1;
+	hid_free_enumeration(hid_info);
+	return keyboard_found;
 }
 
-static int wooting_refresh_buffer() {
+static bool wooting_refresh_buffer() {
 	if (!keyboard_handle) {
-		return wooting_find_keyboard();
+		if (!wooting_find_keyboard()) {
+			return false;
+		}
 	}
 
 	int hid_res = hid_read_timeout(keyboard_handle, hid_read_buffer, ANALOG_BUFFER_SIZE, 0);
@@ -55,9 +63,11 @@ static int wooting_refresh_buffer() {
 	// If the read response is -1 the keyboard is disconnected 
 	if (hid_res == -1) {
 		wooting_keyboard_disconnected();
+		return false;
 	}
-
-	return hid_res;
+	else {
+		return true;
+	}
 }
 
 void wooting_set_disconnected_cb(void_cb cb) {
@@ -65,7 +75,7 @@ void wooting_set_disconnected_cb(void_cb cb) {
 }
 
 bool wooting_kbd_connected() {
-	return hid_enumerate(WOOTING_ONE_VID, WOOTING_ONE_PID) != NULL ? true : false;
+	return wooting_find_keyboard();
 }
 
 unsigned char wooting_read_analog(uint8_t row, uint8_t column) {
@@ -79,7 +89,7 @@ unsigned char wooting_read_analog(uint8_t row, uint8_t column) {
 	};
 
 	// Just return a 0 value if there's an error. Keyboard will be closed in refresh buffer.
-	if (wooting_refresh_buffer() == -1) {
+	if (!wooting_refresh_buffer()) {
 		return 0;
 	}
 
@@ -110,7 +120,7 @@ int wooting_read_full_buffer(WootingAnalogRaw data[], unsigned int length) {
 	int items_written = 0;
 	int items_to_read = length;
 
-	if (wooting_refresh_buffer() == -1) {
+	if (!wooting_refresh_buffer()) {
 		return -1;
 	}
 
