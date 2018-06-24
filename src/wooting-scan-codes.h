@@ -92,9 +92,7 @@ typedef enum SCAN_CODES {
 	SCAN_ModifierRightUi,
 	SCAN_FnKey,
 	SCAN_ExtraIso,
-	SCAN_None,
-	SCAN_None,
-	SCAN_Numpad1,
+	SCAN_Numpad1 = 90,
 	SCAN_Numpad2,
 	SCAN_Numpad3,
 	SCAN_NumpadEnter,
@@ -114,5 +112,5 @@ typedef enum SCAN_CODES {
 	SCAN_A1,
 	SCAN_A2,
 	SCAN_A3,
-	SCAN_Mode
+	SCAN_FullsizeMode
 } SCAN_CODES;
