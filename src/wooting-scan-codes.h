@@ -99,7 +99,7 @@ typedef enum SCAN_CODES {
 	SCAN_NumpadDot,
 	SCAN_Numpad0,
 	SCAN_Numpad6,
-	Scan_Numpad5,
+	SCAN_Numpad5,
 	SCAN_Numpad4,
 	SCAN_NumpadPlus,
 	SCAN_Numpad9,
