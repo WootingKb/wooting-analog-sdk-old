@@ -1,4 +1,4 @@
-#include "wooting-analog-reader.h"
+#include "wooting-analog-sdk.h"
 #include "hidapi.h"
 #include "wooting-scan-codes.h"
 #include "stdint.h"
@@ -135,6 +135,11 @@ int wooting_read_full_buffer(uint8_t data[], unsigned int length) {
 
 		if (analog_value > 0) {
 			data[i] = scan_code;
+
+			// Cap out values to a maximum
+			if (analog_value > 225) {
+				analog_value = 255;
+			}
 			data[i + 1] = analog_value;
 			items_written++;
 		}

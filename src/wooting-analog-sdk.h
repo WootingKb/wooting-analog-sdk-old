@@ -1,9 +1,9 @@
 #pragma once
 
-#ifdef WOOTINGANALOGREADER_EXPORTS  
-#define WOOTINGANALOGREADER_API __declspec(dllexport)   
+#ifdef WOOTINGANALOGSDK_EXPORTS  
+#define WOOTINGANALOGSDK_API __declspec(dllexport)   
 #else  
-#define WOOTINGANALOGREADER_API __declspec(dllimport)   
+#define WOOTINGANALOGSDK_API __declspec(dllimport)   
 #endif
 
 #include "wooting-scan-codes.h"
@@ -26,7 +26,7 @@ It is recommended to poll this function at the start of your application before 
 @returns
 This function returns true (1) if keyboard is found.
 */
-WOOTINGANALOGREADER_API bool wooting_kbd_connected(void);
+WOOTINGANALOGSDK_API bool wooting_kbd_connected(void);
 
 /** @brief Set callback for when a keyboard disconnect.
 
@@ -37,7 +37,7 @@ The callback will be called when a Wooting keyboard disconnects. Right now this 
 @returns
 None.
 */
-WOOTINGANALOGREADER_API void wooting_set_disconnected_cb(void_cb cb);
+WOOTINGANALOGSDK_API void wooting_set_disconnected_cb(void_cb cb);
 
 /** @brief Get the analog value of a single key.
 
@@ -52,7 +52,7 @@ It is not necesarry to initialize the keyboard before reading, but if the keyboa
 @returns
 This function returns the analog value of the key from 0 - 255
 */
-WOOTINGANALOGREADER_API uint8_t wooting_read_analog(uint8_t row, uint8_t column);
+WOOTINGANALOGSDK_API uint8_t wooting_read_analog(uint8_t row, uint8_t column);
 
 /** @brief Get the full analog buffer.
 
@@ -68,4 +68,4 @@ It is not necesarry to initialize the keyboard before reading. If the keyboard i
 @returns
 This function returns items written and -1 on error.
 */
-WOOTINGANALOGREADER_API int wooting_read_full_buffer(uint8_t data[], unsigned int length);
+WOOTINGANALOGSDK_API int wooting_read_full_buffer(uint8_t data[], unsigned int length);
