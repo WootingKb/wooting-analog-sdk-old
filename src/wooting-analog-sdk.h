@@ -46,6 +46,7 @@ WOOTINGANALOGSDK_API bool wooting_kbd_connected(void);
 The callback will be called when a Wooting keyboard disconnects. It will only trigger after a failed read.
 
 @ingroup API
+@param cb The function pointer of the callback
 
 @returns
 None.
