@@ -37,7 +37,7 @@ For examples check out the [wootdev website](https://dev.wooting.nl)
 
 ## Keyboard Matrix
 Keyboard matrix with just rows and columns
-![Keyboard Matrix Row Columns](resources/keyboard-matrixc-rows-columns.png)
+![Keyboard Matrix Row Columns](resources/keyboard-matrix-rows-columns.png)
 
 Keyboard matrix with scan indexes for the read full buffer
 ![Keyboard Matrix Scan Index](resources/keyboard-matrix-scan-index.png)
