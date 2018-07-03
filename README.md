@@ -16,7 +16,7 @@ to-do
 
 
 ```
-Git clone https://github.com/WootingKb/wooting-analog-sdk.git 
+git clone https://github.com/WootingKb/wooting-analog-sdk.git 
 ```
 Open the visual studio project and select x64 (64-bit) or x86 (32-bit)
 
