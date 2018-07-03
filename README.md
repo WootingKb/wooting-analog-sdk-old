@@ -24,11 +24,11 @@ Now hit the build and find your DLL in the folder depending on your configuratio
 
 64-bit
 ```
-\wooting-analog-sdk\windows\x64\Release\wooting-rgb-sdk.dll
+\wooting-analog-sdk\windows\x64\Release\wooting-analog-sdk.dll
 ```
 32-bit
 ```
-\wooting-analog-sdk\windows\Release\wooting-rgb-sdk.dll
+\wooting-analog-sdk\windows\Release\wooting-analog-sdk.dll
 ```
 
 ## Example
