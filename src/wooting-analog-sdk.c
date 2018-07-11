@@ -33,6 +33,7 @@ static void wooting_keyboard_disconnected() {
 
 static bool wooting_find_keyboard() {
 	struct hid_device_info* hid_info = hid_enumerate(WOOTING_ONE_VID, WOOTING_ONE_PID);
+	uint8_t interfaceCount = 0;
 
 	if (hid_info == NULL) {
 		return false;
@@ -40,10 +41,20 @@ static bool wooting_find_keyboard() {
 
 	bool keyboard_found = false;
 
-	// Loop through linked list of hid_info untill the analog interface is found 
+	// Determine the total amount of interfaces first, because some interfaces can be disabled.
 	struct hid_device_info* hid_info_walker = hid_info;
 	while (hid_info_walker) {
-		if (hid_info_walker->usage_page == WOOTING_ONE_ANALOG_USAGE_PAGE) {
+		interfaceCount++;
+		hid_info_walker = hid_info_walker->next;
+	}
+
+	// The analog interface is always the last one
+	uint8_t interfaceNr = interfaceCount - 1;
+
+	// Reset walker to top and search for the interface number
+	hid_info_walker = hid_info;
+	while (hid_info_walker) {
+		if (hid_info_walker->interface_number == interfaceNr) {
 			keyboard_handle = hid_open_path(hid_info_walker->path);
 			if (keyboard_handle) {
 				keyboard_found = true;
