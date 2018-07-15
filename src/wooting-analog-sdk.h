@@ -50,7 +50,7 @@ WOOTINGANALOGSDK_API void wooting_set_disconnected_cb(void_cb cb);
 This function returns an analog value of a single key. The arguments are a row and column index of the keyboard array.
 The keyboard matrix with row columns indexing can be found in the resources folder.
 
-It is not necesarry to initialize the keyboard before reading. If the keyboard is not connected this function will return 0.
+It is not necessary to initialize the keyboard before reading. If the keyboard is not connected this function will return 0.
 Indexes out of bound will also return 0.
 
 @ingroup API
@@ -68,7 +68,7 @@ This function can be used to get a buffer of all the keys that are pressed up to
 The data is ordered as [scan_code0, analog_value0, scan_code1, analog_value1, .... , scan_code15, analog_value15] 
 The keyboard matrix with scan code indexing can be found in the resources folder.
 
-It is not necesarry to initialize the keyboard before reading. If the keyboard is not connected this function will return -1.
+It is not necessary to initialize the keyboard before reading. If the keyboard is not connected this function will return -1.
 
 @ingroup API
 @param data A buffer to put the read data into (2 - 32 bytes).
