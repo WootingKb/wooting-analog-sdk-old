@@ -38,12 +38,22 @@ static bool wooting_find_keyboard() {
 		return false;
 	}
 
-	bool keyboard_found = false;
-
-	// Loop through linked list of hid_info untill the analog interface is found 
+	// The amount of interfaces is variable, so we need to look for the analog interface
+	// In the Wooting one keyboard the analog interface is always the highest number
 	struct hid_device_info* hid_info_walker = hid_info;
+	uint8_t interfaceNr = 0;
 	while (hid_info_walker) {
-		if (hid_info_walker->usage_page == WOOTING_ONE_ANALOG_USAGE_PAGE) {
+		if (hid_info_walker->interface_number > interfaceNr) {
+			interfaceNr = hid_info_walker->interface_number;
+		}
+		hid_info_walker = hid_info_walker->next;
+	}
+
+	bool keyboard_found = false;
+	// Reset walker to top and search for the interface number
+	hid_info_walker = hid_info;
+	while (hid_info_walker) {
+		if (hid_info_walker->interface_number == interfaceNr) {
 			keyboard_handle = hid_open_path(hid_info_walker->path);
 			if (keyboard_handle) {
 				keyboard_found = true;
