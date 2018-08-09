@@ -16,3 +16,5 @@ windows/x64/
 
 *.filters
 *.user
+
+*.aps
