@@ -7,11 +7,16 @@
 */
 #pragma once
 
+// Check for Windows, and make sure it is not CYGWIN (since that uses Unix APIs)
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 #ifdef WOOTINGANALOGSDK_EXPORTS  
 #define WOOTINGANALOGSDK_API __declspec(dllexport)   
 #else  
 #define WOOTINGANALOGSDK_API __declspec(dllimport)   
 #endif
+#else
+#define WOOTINGANALOGSDK_API
+#endif // WIN32 check
 
 #include "stdbool.h"
 #include "stdint.h"
