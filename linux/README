@@ -1,0 +1,33 @@
+# Requirements
+
+Make
+Clang
+
+These are required for libhid:
+Autotools Development
+Autoconf
+Automake
+Libtool
+udev Development
+Libusb Development
+Libfox Development
+
+To install these on Debian based systems run:
+```
+sudo apt-get install autotools-dev autoconf automake libtool libudev-dev libusb-1.0-0-dev libfox-1.6-dev build-essential clang
+```
+
+# Building libhid
+```
+cd libhid
+./bootstrap
+./configure
+make -j8
+```
+You can adjust -j8 based on your system, if your RAM allows the recomendation is generally threads * 2.
+
+# Building
+```
+cd linux
+make
+```
