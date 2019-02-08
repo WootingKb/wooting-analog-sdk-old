@@ -3,7 +3,7 @@ Direct access to raw analog values from an analog keyboard for game and applicat
 
 ## Getting Started
 
-This project will allow you to build your own DLL and customize the source code. Looking to directly get started with the DLL? Check out the downloads and guides in our [developer portal](https://dev.wooting.nl)
+This project will allow you to build your own DLL and customize the source code. Looking to directly get started with the DLL? Check out the downloads and guides in our [developer portal](https://dev.wooting.io)
 
 ### Prerequisites
 
@@ -33,7 +33,7 @@ Now hit the build and find your DLL in the folder depending on your configuratio
 
 ## Example
 
-For examples check out the [wootdev website](https://dev.wooting.nl)
+For examples check out the [wootdev website](https://dev.wooting.io)
 
 ## Keyboard Matrix
 Keyboard matrix with just rows and columns
