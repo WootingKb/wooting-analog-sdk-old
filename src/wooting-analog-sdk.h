@@ -7,6 +7,10 @@
 */
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifdef WOOTINGANALOGSDK_EXPORTS  
 #define WOOTINGANALOGSDK_API __declspec(dllexport)   
 #else  
@@ -78,3 +82,7 @@ It is not necessary to initialize the keyboard before reading. If the keyboard i
 This function returns items written and -1 on error.
 */
 WOOTINGANALOGSDK_API int wooting_read_full_buffer(uint8_t data[], unsigned int length);
+
+#ifdef __cplusplus
+}
+#endif
