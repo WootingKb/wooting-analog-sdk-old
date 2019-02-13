@@ -8,6 +8,9 @@ windows/Backup/
 windows/Debug/
 windows/x64/
 
+linux/build/
+linux/wooting-analog-sdk.so
+
 *.htm
 
 *.db
