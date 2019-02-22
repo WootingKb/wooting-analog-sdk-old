@@ -14,8 +14,9 @@
 #define NOKEY 255
 
 #define ANALOG_BUFFER_SIZE 32
-#define WOOTING_ONE_VID 0x03EB
+#define WOOTING_VID 0x03EB
 #define WOOTING_ONE_PID 0xFF01
+#define WOOTING_TWO_PID 0xFF02
 #define WOOTING_ONE_ANALOG_USAGE_PAGE 0x1338
 
 static hid_device* keyboard_handle = NULL;
@@ -32,7 +33,7 @@ static void wooting_keyboard_disconnected() {
 }
 
 static bool wooting_find_keyboard() {
-	struct hid_device_info* hid_info = hid_enumerate(WOOTING_ONE_VID, WOOTING_ONE_PID);
+	struct hid_device_info* hid_info = hid_enumerate(WOOTING_VID, WOOTING_ONE_PID) ? hid_enumerate(WOOTING_VID, WOOTING_ONE_PID) : hid_enumerate(WOOTING_VID, WOOTING_TWO_PID);
 
 	if (hid_info == NULL) {
 		return false;
