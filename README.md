@@ -1,4 +1,7 @@
+> This SDK has now been deprecated and has been surperseeded by out new version found [here](https://github.com/WootingKb/wooting-analog-sdk)
+
 # Wooting Analog SDK
+
 Direct access to raw analog values from an analog keyboard for game and application developers.
 
 ## Getting Started
