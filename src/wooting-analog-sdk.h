@@ -7,10 +7,14 @@
 */
 #pragma once
 
+#if defined(_WIN32) || defined(WIN32)
 #ifdef WOOTINGANALOGSDK_EXPORTS  
 #define WOOTINGANALOGSDK_API __declspec(dllexport)   
 #else  
 #define WOOTINGANALOGSDK_API __declspec(dllimport)   
+#endif
+#else
+#define WOOTINGANALOGSDK_API
 #endif
 
 #include "stdbool.h"
